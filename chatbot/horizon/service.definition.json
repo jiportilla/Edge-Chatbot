@@ -1,0 +1,41 @@
+{
+    "org": "$HZN_ORG_ID",
+    "label": "$CHATBOT_NAME for $ARCH",
+    "description": "Horizon example that runs a web app with index.html to start a session with IBM Watson Assistant chatbot",
+    "public": true,
+    "documentation": "https://github.ibm.com/ivanp/open-horizon/blob/master/README.md",
+    "url": "$MYDOMAIN.$CHATBOT_NAME",
+    "version": "$CHATBOT_VERSION",
+    "arch": "$ARCH",
+    "sharable": "multiple",
+    "requiredServices": [
+    ],
+    "userInput": [
+        {
+            "name": "MOCK",
+            "label": "mock the chatbot deployment",
+            "type": "boolean",
+            "defaultValue": "false"
+        },
+        {
+            "name": "PUBLISH",
+            "label": "publish the chatbot web application",
+            "type": "boolean",
+            "defaultValue": "true"
+        }
+    ],
+    "deployment": {
+        "services": {
+            "chatbot": {
+                "image": "$DOCKER_HUB_ID/${ARCH}_$CHATBOT_NAME:$CHATBOT_VERSION",
+                "privileged": true,
+                "ports": [
+                    {
+                        "HostPort": "9080:9080/tcp",
+                        "HostIP": "0.0.0.0"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "label": "Edge $CHATBOT_NAME Service Pattern for amd64 architecture",
+  "description": "Pattern for $CHATBOT_NAME with a link to Watson Assistant on the IBM Cloud",
+  "public": true,
+  "services": [
+    {
+      "serviceUrl": "$MYDOMAIN.$CHATBOT_NAME",
+      "serviceOrgid": "$HZN_ORG_ID",
+      "serviceArch": "amd64",
+      "serviceVersions": [
+        {
+          "version": "$CHATBOT_VERSION"
+        }
+      ]
+    }
+  ]
+}
