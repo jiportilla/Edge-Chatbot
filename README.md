@@ -1,2 +1,2 @@
 # open-horizon
-IBM Open Horizon
+IBM Open Horizon-Chatbot
