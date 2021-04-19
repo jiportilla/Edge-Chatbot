@@ -2,7 +2,15 @@
 SYSTEM_ARCH := $(shell uname -m | sed -e 's/aarch64.*/arm64/' -e 's/x86_64.*/amd64/' -e 's/armv.*/arm/')
 
 # To build for an arch different from the current system, set this env var to one of the values in the comment above
-export ARCH ?= $(SYSTEM_ARCH)
+#export ARCH ?= $(SYSTEM_ARCH)
+
+
+# BADM 48030
+export ARCH ?= amd64
+export PORT ?= 9081
+
+
+
 
 # These variables can be overridden from the environment
 export CHATBOT_NAME ?= chatbot
@@ -20,19 +28,17 @@ default: all
 
 all: build run
 
-iportilla/amd64_chatbot:1.0.1
-
 build:
-	docker build -t $(DOCKER_HUB_ID)/$(DOCKER_NAME):$(CHATBOT_VERSION) -f ./Dockerfile.$(ARCH) .
+	docker build -t $(DOCKER_HUB_ID)/$(CHATBOT_NAME):$(CHATBOT_VERSION) -f ./Dockerfile.$(ARCH) .
 ifeq (,$(findstring amd64,$(ARCH)))
 	rm -f tmp/$(ARCH)/*.rsa.pub
 endif
 
 
 run:
-	-docker rm -f $(DOCKER_NAME) 2> /dev/null || :
-	docker run -d --name $(DOCKER_NAME) -p 9080:9080 --volume `pwd`:/outside $(DOCKER_HUB_ID)/$(DOCKER_NAME):$(CHATBOT_VERSION)
-	@echo "Open your browser and go to http://localhost:9080"
+	-docker rm -f $(CHATBOT_NAME) 2> /dev/null || :
+	docker run -d --name $(CHATBOT_NAME) -p $(PORT):9080 --volume `pwd`:/outside $(DOCKER_HUB_ID)/$(DOCKER_NAME):$(CHATBOT_VERSION)
+	@echo "Open your browser and go to http://localhost:"$(PORT)
 
 
 check:
