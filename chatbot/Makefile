@@ -37,7 +37,7 @@ endif
 
 run:
 	-docker rm -f $(CHATBOT_NAME) 2> /dev/null || :
-	docker run -d --name $(CHATBOT_NAME) -p $(PORT):9080 --volume `pwd`:/outside $(DOCKER_HUB_ID)/$(DOCKER_NAME):$(CHATBOT_VERSION)
+	docker run -d --name $(CHATBOT_NAME) -p $(PORT):9080 --volume `pwd`:/outside $(DOCKER_HUB_ID)/$(CHATBOT_NAME):$(CHATBOT_VERSION)
 	@echo "Open your browser and go to http://localhost:"$(PORT)
 
 
